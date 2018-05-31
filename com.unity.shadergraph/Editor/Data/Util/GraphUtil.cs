@@ -1372,7 +1372,8 @@ namespace UnityEditor.ShaderGraph
 
         public static void OpenFile(string path)
         {
-            if (!File.Exists(Path.GetFullPath(path)))
+            string file = Path.GetFullPath(path);
+            if (!File.Exists(file))
             {
                 Debug.LogError(string.Format("Path {0} doesn't exists", path));
                 return;
@@ -1381,7 +1382,6 @@ namespace UnityEditor.ShaderGraph
             string externalScriptEditor = ScriptEditorUtility.GetExternalScriptEditor();
             if (externalScriptEditor != "internal")
             {
-                string file = Path.GetFullPath(path);
                 ProcessStartInfo pi = new ProcessStartInfo(file);
                 pi.Arguments = Path.GetFileName(file);
                 pi.UseShellExecute = true;
@@ -1390,7 +1390,10 @@ namespace UnityEditor.ShaderGraph
                 pi.Verb = "OPEN";
                 Process.Start(pi);
             }
-            Debug.LogWarningFormat("Unable to open {0}: Check external editor in preferences", path);
+            else
+            {
+                Process.Start(@file);
+            }
         }
     }
 }
