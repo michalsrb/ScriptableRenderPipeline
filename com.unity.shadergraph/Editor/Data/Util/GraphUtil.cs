@@ -1378,14 +1378,19 @@ namespace UnityEditor.ShaderGraph
                 return;
             }
 
-            string file = Path.GetFullPath(path);
-            ProcessStartInfo pi = new ProcessStartInfo(file);
-            pi.Arguments = Path.GetFileName(file);
-            pi.UseShellExecute = true;
-            pi.WorkingDirectory = Path.GetDirectoryName(file);
-            pi.FileName = ScriptEditorUtility.GetExternalScriptEditor();
-            pi.Verb = "OPEN";
-            Process.Start(pi);
+            string externalScriptEditor = ScriptEditorUtility.GetExternalScriptEditor();
+            if (externalScriptEditor != "internal")
+            {
+                string file = Path.GetFullPath(path);
+                ProcessStartInfo pi = new ProcessStartInfo(file);
+                pi.Arguments = Path.GetFileName(file);
+                pi.UseShellExecute = true;
+                pi.WorkingDirectory = Path.GetDirectoryName(file);
+                pi.FileName = externalScriptEditor;
+                pi.Verb = "OPEN";
+                Process.Start(pi);
+            }
+            Debug.LogWarningFormat("Unable to open {0}: Check external editor in preferences", path);
         }
     }
 }
