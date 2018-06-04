@@ -1370,10 +1370,29 @@ namespace UnityEditor.ShaderGraph
             }
         }
 
+        static ProcessStartInfo CreateProcessStartInfo(string filePath)
+        {
+            string externalScriptEditor = ScriptEditorUtility.GetExternalScriptEditor();
+
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.UseShellExecute = false;
+
+        #if UNITY_EDITOR_WIN
+            psi.Arguments = Path.GetFileName(filePath);
+            psi.WorkingDirectory = Path.GetDirectoryName(filePath);
+            psi.FileName = externalScriptEditor;
+        #elif UNITY_EDITOR_OSX
+            string arg = string.Format("-a \"{0}\" -n --args \"{1}\"", externalScriptEditor, Path.GetFullPath(filePath));
+            psi.FileName = "open";
+            psi.Arguments = arg;
+        #endif
+            return psi;
+        }
+
         public static void OpenFile(string path)
         {
-            string file = Path.GetFullPath(path);
-            if (!File.Exists(file))
+            string filePath = Path.GetFullPath(path);
+            if (!File.Exists(filePath))
             {
                 Debug.LogError(string.Format("Path {0} doesn't exists", path));
                 return;
@@ -1382,17 +1401,12 @@ namespace UnityEditor.ShaderGraph
             string externalScriptEditor = ScriptEditorUtility.GetExternalScriptEditor();
             if (externalScriptEditor != "internal")
             {
-                ProcessStartInfo pi = new ProcessStartInfo(file);
-                pi.Arguments = Path.GetFileName(file);
-                pi.UseShellExecute = true;
-                pi.WorkingDirectory = Path.GetDirectoryName(file);
-                pi.FileName = externalScriptEditor;
-                pi.Verb = "OPEN";
-                Process.Start(pi);
+                ProcessStartInfo psi = CreateProcessStartInfo(filePath);
+                Process.Start(psi);
             }
             else
             {
-                Process.Start(@file);
+                Process.Start(filePath);
             }
         }
     }
