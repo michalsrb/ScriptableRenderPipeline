@@ -11,6 +11,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using System.Reflection;
+using Object = System.Object;
 
 namespace UnityEditor.ShaderGraph
 {
@@ -1406,7 +1407,14 @@ namespace UnityEditor.ShaderGraph
             }
             else
             {
-                Process.Start(filePath);
+                Process p = new Process();
+                p.StartInfo.FileName = filePath;
+                p.EnableRaisingEvents = true;
+                p.Exited += (Object obj, EventArgs args) =>
+                {
+                    Debug.LogWarningFormat("Unable to open {0}: Check external editor in preferences", filePath);
+                };
+                p.Start();
             }
         }
     }
