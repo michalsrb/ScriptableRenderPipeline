@@ -1412,7 +1412,8 @@ namespace UnityEditor.ShaderGraph
                 p.EnableRaisingEvents = true;
                 p.Exited += (Object obj, EventArgs args) =>
                 {
-                    Debug.LogWarningFormat("Unable to open {0}: Check external editor in preferences", filePath);
+                    if(p.ExitCode != 0)
+                        Debug.LogWarningFormat("Unable to open {0}: Check external editor in preferences", filePath);
                 };
                 p.Start();
             }
