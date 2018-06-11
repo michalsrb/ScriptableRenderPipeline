@@ -1382,7 +1382,7 @@ namespace UnityEditor.ShaderGraph
             psi.Arguments = Path.GetFileName(filePath);
             psi.WorkingDirectory = Path.GetDirectoryName(filePath);
             psi.FileName = externalScriptEditor;
-        #elif UNITY_EDITOR_OSX
+        #else
             string arg = string.Format("-a \"{0}\" -n --args \"{1}\"", externalScriptEditor, Path.GetFullPath(filePath));
             psi.FileName = "open";
             psi.Arguments = arg;
