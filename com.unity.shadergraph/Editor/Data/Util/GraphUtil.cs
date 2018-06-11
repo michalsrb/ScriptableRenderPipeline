@@ -1378,14 +1378,15 @@ namespace UnityEditor.ShaderGraph
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.UseShellExecute = false;
 
-        #if UNITY_EDITOR_WIN
-            psi.Arguments = Path.GetFileName(filePath);
-            psi.WorkingDirectory = Path.GetDirectoryName(filePath);
-            psi.FileName = externalScriptEditor;
-        #else
+
+        #if UNITY_EDITOR_OSX
             string arg = string.Format("-a \"{0}\" -n --args \"{1}\"", externalScriptEditor, Path.GetFullPath(filePath));
             psi.FileName = "open";
             psi.Arguments = arg;
+        #else
+            psi.Arguments = Path.GetFileName(filePath);
+            psi.WorkingDirectory = Path.GetDirectoryName(filePath);
+            psi.FileName = externalScriptEditor;
         #endif
             return psi;
         }
