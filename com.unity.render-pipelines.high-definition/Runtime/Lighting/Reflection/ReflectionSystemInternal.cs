@@ -469,7 +469,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline.Internal
             clearFlags = CameraClearFlags.Nothing;
             backgroundColor = Color.white;
 
-            capturePosition = additional.transform.position; //at the moment capture position is at probe position
+            capturePosition = additional.capturePosition;
             captureRotation = Quaternion.identity;
 
             worldToCamera = GeometryUtils.CalculateWorldToCameraMatrixRHS(capturePosition, captureRotation);
@@ -495,7 +495,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline.Internal
             clearFlags = CameraClearFlags.Nothing;
             backgroundColor = Color.white;
 
-            capturePosition = probe.transform.TransformPoint(probe.captureLocalPosition);
+            capturePosition = probe.capturePosition;
             captureRotation = Quaternion.LookRotation((Vector3)probe.influenceToWorld.GetColumn(3) - capturePosition, probe.transform.up);
 
             worldToCamera = GeometryUtils.CalculateWorldToCameraMatrixRHS(capturePosition, captureRotation);

@@ -58,7 +58,14 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             set { m_CaptureMirrorPlaneLocalNormal = value; }
         }
         public Vector3 captureMirrorPlaneNormal { get { return transform.TransformDirection(m_CaptureMirrorPlaneLocalNormal); } }
-        
+        internal override Vector3 capturePosition
+        {
+            get
+            {
+                return transform.TransformPoint(captureLocalPosition);
+            }
+        }
+
         public bool useMirrorPlane
         {
             get

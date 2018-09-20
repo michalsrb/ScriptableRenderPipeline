@@ -154,6 +154,13 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                     : influenceExtents;
             }
         }
+        internal virtual Vector3 capturePosition
+        {
+            get
+            {
+                return transform.position; //at the moment capture position is at probe position
+            }
+        }
 
         internal virtual void Awake()
         {

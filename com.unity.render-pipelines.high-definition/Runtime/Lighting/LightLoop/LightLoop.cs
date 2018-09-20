@@ -1438,7 +1438,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 HDAdditionalReflectionData cubeProbe = probe as HDAdditionalReflectionData;
                 envIndex = m_ReflectionProbeCache.FetchSlice(cmd, probe.currentTexture);
                 envIndex = envIndex << 1 | (int)EnvCacheType.Cubemap;
-                capturePosition = (Vector3)influenceToWorld.GetColumn(3) - cubeProbe.reflectionProbe.center;
+                capturePosition = cubeProbe.capturePosition;
             }
             // -1 means that the texture is not ready yet (ie not convolved/compressed yet)
             if (envIndex == -1)
