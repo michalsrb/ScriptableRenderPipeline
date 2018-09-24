@@ -36,6 +36,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         Texture m_CustomTexture;
         [SerializeField]
         Texture m_BakedTexture;
+        [SerializeField]
+        bool m_RenderDynamicObjects;
 
         /// <summary>Light layer to use by this probe.</summary>
         public LightLayerEnum lightLayers = LightLayerEnum.LightLayerDefault;
@@ -86,7 +88,9 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 }
             }
         }
-        
+        /// <summary>Render dynamic objects with custom texture as background</summary>
+        public bool renderDynamicObjects { get { return m_RenderDynamicObjects; } set { m_RenderDynamicObjects = value; } }
+
         /// <summary>The capture mode.</summary>
         public virtual ReflectionProbeMode mode
         {

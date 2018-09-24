@@ -194,33 +194,31 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
 
 
-        static readonly GUIContent[] k_Content_ReflectionProbeMode = { new GUIContent("Baked"), new GUIContent("Custom"), new GUIContent("Realtime") };
-        static readonly int[] k_Content_ReflectionProbeModeValues = { (int)ReflectionProbeMode.Baked, (int)ReflectionProbeMode.Custom, (int)ReflectionProbeMode.Realtime };
+        static readonly GUIContent[] k_ModeContents = { new GUIContent("Baked"), new GUIContent("Custom"), new GUIContent("Realtime") };
+        static readonly int[] k_ModeValues = { (int)ReflectionProbeMode.Baked, (int)ReflectionProbeMode.Custom, (int)ReflectionProbeMode.Realtime };
         static void Drawer_ReflectionProbeMode(HDProbeUI s, SerializedHDProbe p, Editor owner)
         {
-            HDProbeUI ui = ((HDProbeEditor)owner).m_UIState;
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = p.mode.hasMultipleDifferentValues;
-            EditorGUILayout.IntPopup(p.mode, k_Content_ReflectionProbeMode, k_Content_ReflectionProbeModeValues, CoreEditorUtils.GetContent("Type|'Baked Cubemap' uses the 'Auto Baking' mode from the Lighting window. If it is enabled then baking is automatic otherwise manual bake is needed (use the bake button below). \n'Custom' can be used if a custom cubemap is wanted. \n'Realtime' can be used to dynamically re-render the cubemap during runtime (via scripting)."));
+            EditorGUILayout.IntPopup(p.mode, k_ModeContents, k_ModeValues, CoreEditorUtils.GetContent("Type|'Baked Cubemap' uses the 'Auto Baking' mode from the Lighting window. If it is enabled then baking is automatic otherwise manual bake is needed (use the bake button below). \n'Custom' can be used if a custom cubemap is wanted. \n'Realtime' can be used to dynamically re-render the cubemap during runtime (via scripting)."));
             EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck())
             {
-                ui.SetModeTarget(p.mode.intValue);
+                s.SetModeTarget(p.mode.intValue);
                 p.Apply();
             }
         }
         
         static void Drawer_ModeSettingsCustom(HDProbeUI s, SerializedHDProbe p, Editor owner)
         {
-            SerializedHDReflectionProbe probe = (SerializedHDReflectionProbe)p;
-            EditorGUILayout.PropertyField(probe.renderDynamicObjects, CoreEditorUtils.GetContent("Dynamic Objects|If enabled dynamic objects are also rendered into the cubemap"));
+            EditorGUILayout.PropertyField(p.renderDynamicObjects, CoreEditorUtils.GetContent("Dynamic Objects|If enabled dynamic objects are also rendered into the cubemap"));
 
-            EditorGUI.showMixedValue = probe.customBakedTexture.hasMultipleDifferentValues;
+            EditorGUI.showMixedValue = p.customBakedTexture.hasMultipleDifferentValues;
             EditorGUI.BeginChangeCheck();
-            var customBakedTexture = EditorGUILayout.ObjectField(CoreEditorUtils.GetContent("Cubemap"), probe.customBakedTexture.objectReferenceValue, typeof(Cubemap), false);
+            var customTexture = EditorGUILayout.ObjectField(CoreEditorUtils.GetContent("Cubemap"), p.customBakedTexture.objectReferenceValue, typeof(Cubemap), false);
             EditorGUI.showMixedValue = false;
             if (EditorGUI.EndChangeCheck())
-                probe.customBakedTexture.objectReferenceValue = customBakedTexture;
+                p.customBakedTexture.objectReferenceValue = customTexture;
         }
 
         //static void Drawer_ModeSettingsRealtime(HDProbeUI s, SerializedHDProbe p, Editor owner)

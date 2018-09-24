@@ -36,9 +36,9 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         internal SerializedHDProbe(SerializedObject serializedObject)
         {
             this.serializedObject = serializedObject;
-            
-            //customBakedTexture = serializedObject.Find((HDProbe p) => p.back);
-            //renderDynamicObjects = legacyProbe.FindProperty("m_RenderDynamicObjects");
+
+            customBakedTexture = serializedObject.Find((HDProbe p) => p.customTexture);
+            renderDynamicObjects = serializedObject.Find((HDProbe p) => p.renderDynamicObjects);
 
             proxyVolumeReference = serializedObject.Find((HDProbe p) => p.proxyVolume);
             influenceVolume = new SerializedInfluenceVolume(serializedObject.Find((HDProbe p) => p.influenceVolume));

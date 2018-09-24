@@ -7,9 +7,6 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
     {
         internal SerializedObject serializedLegacyObject;
 
-        internal SerializedProperty renderDynamicObjects;
-        internal SerializedProperty customBakedTexture;
-        internal SerializedProperty timeSlicingMode;
 
         SerializedProperty legacyBlendDistance;
         SerializedProperty legacySize;
@@ -23,9 +20,6 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         {
             serializedLegacyObject = legacyProbe;
 
-            customBakedTexture = legacyProbe.FindProperty("m_CustomBakedTexture");
-            renderDynamicObjects = legacyProbe.FindProperty("m_RenderDynamicObjects");
-            timeSlicingMode = legacyProbe.FindProperty("m_TimeSlicingMode");
             legacySize = legacyProbe.FindProperty("m_BoxSize");
             legacyOffset = legacyProbe.FindProperty("m_BoxOffset");
             resolution = legacyProbe.FindProperty("m_Resolution");
