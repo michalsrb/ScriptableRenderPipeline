@@ -15,7 +15,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             NormalBlend = 1 << 2,
             CapturePosition = 1 << 3
         }
-        protected ToolBar[] toolBars = null;    //to be set in child static constructor
+        protected ToolBar[] toolBars = null;    //to be set in child constructor
 
         protected const EditMode.SceneViewEditMode EditBaseShape = EditMode.SceneViewEditMode.ReflectionProbeBox;
         protected const EditMode.SceneViewEditMode EditInfluenceShape = EditMode.SceneViewEditMode.GridBox;

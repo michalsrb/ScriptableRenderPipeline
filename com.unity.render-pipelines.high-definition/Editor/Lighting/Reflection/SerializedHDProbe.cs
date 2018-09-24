@@ -6,6 +6,10 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
     {
         internal SerializedObject serializedObject;
         
+        internal SerializedProperty renderDynamicObjects;
+        internal SerializedProperty customBakedTexture;
+        //internal SerializedProperty timeSlicingMode;
+
         internal SerializedProperty proxyVolumeReference;
         internal SerializedProperty infiniteProjection;
 
@@ -32,6 +36,9 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         internal SerializedHDProbe(SerializedObject serializedObject)
         {
             this.serializedObject = serializedObject;
+            
+            //customBakedTexture = serializedObject.Find((HDProbe p) => p.back);
+            //renderDynamicObjects = legacyProbe.FindProperty("m_RenderDynamicObjects");
 
             proxyVolumeReference = serializedObject.Find((HDProbe p) => p.proxyVolume);
             influenceVolume = new SerializedInfluenceVolume(serializedObject.Find((HDProbe p) => p.influenceVolume));

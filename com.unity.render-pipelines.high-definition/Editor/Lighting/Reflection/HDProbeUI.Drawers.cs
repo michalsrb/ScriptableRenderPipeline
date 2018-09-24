@@ -129,7 +129,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static void Drawer_SectionProbeModeRealtimeSettings(HDProbeUI s, SerializedHDProbe d, Editor o)
         {
             GUI.enabled = false;
-            EditorGUILayout.PropertyField(d.refreshMode, _.GetContent("Refresh Mode"));
+            EditorGUILayout.PropertyField(d.refreshMode, _.GetContent("Refresh Mode|Only EveryFrame supported at the moment"));
             GUI.enabled = true;
             EditorGUILayout.Space();
         }
@@ -198,7 +198,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static readonly int[] k_Content_ReflectionProbeModeValues = { (int)ReflectionProbeMode.Baked, (int)ReflectionProbeMode.Custom, (int)ReflectionProbeMode.Realtime };
         static void Drawer_ReflectionProbeMode(HDProbeUI s, SerializedHDProbe p, Editor owner)
         {
-            HDReflectionProbeUI ui = ((HDReflectionProbeEditor)owner).m_UIState;
+            HDProbeUI ui = ((HDProbeEditor)owner).m_UIState;
             EditorGUI.BeginChangeCheck();
             EditorGUI.showMixedValue = p.mode.hasMultipleDifferentValues;
             EditorGUILayout.IntPopup(p.mode, k_Content_ReflectionProbeMode, k_Content_ReflectionProbeModeValues, CoreEditorUtils.GetContent("Type|'Baked Cubemap' uses the 'Auto Baking' mode from the Lighting window. If it is enabled then baking is automatic otherwise manual bake is needed (use the bake button below). \n'Custom' can be used if a custom cubemap is wanted. \n'Realtime' can be used to dynamically re-render the cubemap during runtime (via scripting)."));

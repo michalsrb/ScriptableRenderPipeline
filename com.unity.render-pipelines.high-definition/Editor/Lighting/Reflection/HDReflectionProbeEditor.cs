@@ -75,7 +75,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         }
         
         SerializedObject m_AdditionalDataSerializedObject;
-        internal HDReflectionProbeUI m_UIState = new HDReflectionProbeUI();
+        //internal HDReflectionProbeUI m_UIState = new HDReflectionProbeUI();
 
         public bool sceneViewEditing
         {
@@ -97,7 +97,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             base.OnEnable();
 
             //m_UIState.owner = this;
-            m_UIState.Reset(m_SerializedHDProbe, Repaint);
+            //m_UIState.Reset(m_SerializedHDProbe, Repaint);
             
             InitializeTargetProbe();
 
