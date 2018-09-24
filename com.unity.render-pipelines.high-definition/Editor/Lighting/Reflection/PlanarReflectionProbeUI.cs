@@ -10,8 +10,8 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static readonly GUIContent overrideFieldOfViewContent = CoreEditorUtils.GetContent("Override Field Of View");
         static readonly GUIContent fieldOfViewSolidAngleContent = CoreEditorUtils.GetContent("Field Of View");
 
-        public static CED.IDrawer Inspector;
-       
+        public static readonly CED.IDrawer[] Inspector;
+
         public static readonly CED.IDrawer SectionFoldoutCaptureSettings = CED.FoldoutGroup(
             "Capture Settings",
             (s, d, o) => s.isSectionExpandedCaptureSettings,
@@ -21,26 +21,18 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
         static PlanarReflectionProbeUI()
         {
-            Inspector = CED.Group(
-                  CED.Action(Drawer_Toolbars),
-                  CED.space,
-                  ProxyVolumeSettings,
-                  CED.Select(
-                      (s, d, o) => s.influenceVolume,
-                      (s, d, o) => d.influenceVolume,
-                      InfluenceVolumeUI.SectionFoldoutShapePlanar
-                      ),
-                  CED.Action(Drawer_DifferentShapeError),
-                  SectionFoldoutCaptureSettings,
-                  SectionFoldoutAdditionalSettings,
-                  CED.Select(
-                      (s, d, o) => s.frameSettings,
-                      (s, d, o) => d.frameSettings,
-                      FrameSettingsUI.Inspector(withXR: false)
-                      ),
-                  CED.space,
-                  CED.Action(Drawer_SectionBakeButton)
-                  );
+            int max = HDProbeUI.Inspector.Length;
+            Inspector = new CED.IDrawer[max];
+            for(int i = 0; i < max; ++i)
+            {
+                Inspector[i] = HDProbeUI.Inspector[i];
+            }
+            Inspector[1] = CED.noop;
+            Inspector[3] = CED.Select(
+                (s, d, o) => s.influenceVolume,
+                (s, d, o) => d.influenceVolume,
+                InfluenceVolumeUI.SectionFoldoutShapePlanar
+                );
         }
 
         protected static void Drawer_SectionCaptureSettings(HDProbeUI s, SerializedHDProbe d, Editor o)
@@ -69,28 +61,11 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
                 serialized.overrideFieldOfView.boolValue = on;
                 serialized.Apply();
             }
-
-            //GUI.enabled = false;
-            //EditorGUILayout.LabelField(resolutionContent, CoreEditorUtils.GetContent(((int)hdrp.GetRenderPipelineSettings().lightLoopSettings.reflectionCubemapSize).ToString()));
-            //EditorGUILayout.LabelField(shadowDistanceContent, EditorStyles.label);
-            //EditorGUILayout.LabelField(cullingMaskContent, EditorStyles.label);
-            //EditorGUILayout.LabelField(useOcclusionCullingContent, EditorStyles.label);
-            //EditorGUILayout.LabelField(nearClipCullingContent, EditorStyles.label);
-            //EditorGUILayout.LabelField(farClipCullingContent, EditorStyles.label);
-            //GUI.enabled = true;
         }
 
         internal PlanarReflectionProbeUI()
         {
             toolBars = new[] { ToolBar.InfluenceShape | ToolBar.Blend };
-        }
-
-        public override void Update()
-        {
-            SerializedPlanarReflectionProbe serialized = data as SerializedPlanarReflectionProbe;
-            isSectionExpandedCaptureMirrorSettings.target = serialized.isMirrored;
-            isSectionExpandedCaptureStaticSettings.target = !serialized.isMirrored;
-            base.Update();
         }
     }
 }

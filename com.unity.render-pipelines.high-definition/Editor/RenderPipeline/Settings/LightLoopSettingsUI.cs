@@ -18,10 +18,12 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         public static CED.IDrawer SectionLightLoopSettings(bool withOverride)
         {
             return CED.FoldoutGroup(
-                lightLoopSettingsHeaderContent,
-                (s, p, o) => s.isSectionExpandedLightLoopSettings,
-                FoldoutOption.Indent,
-                CED.LabelWidth(250, CED.Action((s, p, o) => Drawer_SectionLightLoopSettings(s, p, o, withOverride))));
+                    lightLoopSettingsHeaderContent,
+                    (s, p, o) => s.isSectionExpandedLightLoopSettings,
+                    FoldoutOption.Indent,
+                    CED.LabelWidth(250, CED.Action((s, p, o) => Drawer_SectionLightLoopSettings(s, p, o, withOverride))),
+                    CED.space
+                );
         }
 
         public AnimBool isSectionExpandedLightLoopSettings { get { return m_AnimBools[0]; } }

@@ -96,7 +96,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
             base.OnEnable();
 
-            m_UIState.owner = this;
+            //m_UIState.owner = this;
             m_UIState.Reset(m_SerializedHDProbe, Repaint);
             
             InitializeTargetProbe();
@@ -104,7 +104,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             HDAdditionalReflectionData probe = (HDAdditionalReflectionData)m_AdditionalDataSerializedObject.targetObject;
             probe.influenceVolume.Init(probe);
 
-            //unhide previously hidden components
+            //unhide previously hidden components if any
             probe.hideFlags = HideFlags.None;
         }
     }

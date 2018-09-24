@@ -45,11 +45,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         [SerializeField, Obsolete("keeped only for data migration")]
         bool m_OverrideFieldOfView;
         [SerializeField, Obsolete("keeped only for data migration")]
-        float m_FieldOfViewOverride;
+        float m_FieldOfViewOverride = 45f;
         [SerializeField, Obsolete("keeped only for data migration")]
-        float m_CaptureNearPlane;
+        float m_CaptureNearPlane = CaptureSettings.@default.nearClipPlane;
         [SerializeField, Obsolete("keeped only for data migration")]
-        float m_CaptureFarPlane;
+        float m_CaptureFarPlane = CaptureSettings.@default.farClipPlane;
 #pragma warning restore 649 //never assigned
 
         public bool overrideFieldOfView;

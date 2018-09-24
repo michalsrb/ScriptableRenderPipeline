@@ -10,7 +10,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         internal SerializedProperty infiniteProjection;
 
         internal SerializedInfluenceVolume influenceVolume;
-
+        internal SerializedCaptureSettings captureSettings;
         internal SerializedFrameSettings frameSettings;
 
         internal SerializedProperty lightLayers;
@@ -35,6 +35,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
             proxyVolumeReference = serializedObject.Find((HDProbe p) => p.proxyVolume);
             influenceVolume = new SerializedInfluenceVolume(serializedObject.Find((HDProbe p) => p.influenceVolume));
+            captureSettings = new SerializedCaptureSettings(serializedObject.Find((HDProbe p) => p.captureSettings));
             infiniteProjection = serializedObject.Find((HDProbe p) => p.infiniteProjection);
 
             frameSettings = new SerializedFrameSettings(serializedObject.Find((HDProbe p) => p.frameSettings));
@@ -51,6 +52,8 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         {
             serializedObject.Update();
             //InfluenceVolume does not have Update. Add it here if it have in the future.
+            //CaptureSettings does not have Update. Add it here if it have in the future.
+            //FrameSettings does not have Update. Add it here if it have in the future.
         }
 
         internal virtual void Apply()
